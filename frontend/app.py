@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import json
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://backend:8000"
 
 st.title("Extracteur de CV")
 
@@ -16,7 +16,7 @@ uploaded_file = st.file_uploader(
     type=["pdf", "docx"]
 )
 
-if st.button("Analyze CV"):
+if st.button("Analyse du CV"):
     if uploaded_file is None:
         st.error("Veuillez d'abord télécharger un fichier.")
     else:
@@ -40,15 +40,15 @@ if st.button("Analyze CV"):
 
 
 if "cv_result" in st.session_state:
-    st.header("Extracted Information")
+    st.header("Informations extraites du CV")
 
     cv = st.session_state.cv_result
 
-    first_name = st.text_input("First name", cv["first_name"])
-    last_name = st.text_input("Last name", cv["last_name"])
+    first_name = st.text_input("Prénom", cv["first_name"])
+    last_name = st.text_input("Nom", cv["last_name"])
     email = st.text_input("Email", cv["email"])
-    phone = st.text_input("Phone", cv["phone"])
-    degree = st.text_input("Degree", cv["degree"])
+    phone = st.text_input("Téléphone", cv["phone"])
+    degree = st.text_input("Diplôme", cv["degree"])
 
     updated_cv = {
         "first_name": first_name,
@@ -59,7 +59,7 @@ if "cv_result" in st.session_state:
     }
 
     st.download_button(
-        label="Download JSON",
+        label="Télécharger JSON",
         data=json.dumps(updated_cv, indent=2),
         file_name="cv_result.json",
         mime="application/json"
