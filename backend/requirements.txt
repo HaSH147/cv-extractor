@@ -4,3 +4,4 @@ uvicorn
 pdfplumber
 python-docx
 pydantic
+pytest
