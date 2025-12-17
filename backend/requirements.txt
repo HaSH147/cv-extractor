@@ -1,7 +1,7 @@
 fastapi
 python-multipart
 uvicorn
-pdfplumber
+PyPDF2
 python-docx
 pydantic
 pytest
