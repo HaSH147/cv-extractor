@@ -1,24 +1,16 @@
-import pdfplumber
-
+from PyPDF2 import PdfReader
 from fastapi import UploadFile, HTTPException
 
-  
-  
 
 def extract_text_from_pdf(file: UploadFile) -> str:
-
     try:
-
+        reader = PdfReader(file.file)
         text_parts = []
 
-        with pdfplumber.open(file.file) as pdf:
-
-            for page in pdf.pages:
-                page_text = page.extract_text()
-
-                if page_text:
-
-                    text_parts.append(page_text)
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text_parts.append(page_text)
 
         return "\n".join(text_parts)
 

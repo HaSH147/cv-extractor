@@ -9,8 +9,24 @@
 ---
 
 ## Backend
-
 ### Installation
+
+1. Créer et activer un environnement virtuel 
+
+- Linux
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+- Windows (PowerShell)
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+2. Installer les dépendances
+
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -22,8 +38,8 @@ cd backend
 uvicorn main:app --reload
 ```
 
-Le backend est accessible à : http://localhost:8000  
-Documentation API : http://localhost:8000/docs
+Le backend se lance ici : http://localhost:8000  
+Documentation API, pour comprendre et tester le endpoint : http://localhost:8000/docs
 
 ---
 
@@ -38,7 +54,7 @@ Après `cd frontend`, suivez ces étapes :
 
 1. Créer et activer un environnement virtuel 
 
-- macOS / Linux
+- Linux
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -49,7 +65,6 @@ source .venv/bin/activate
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 ```
-
 
 
 2. Installer les dépendances

@@ -14,13 +14,6 @@ class TextExtractor:
         text = text.lower()
         return text
 
-
-    def normalize_degree(self, text: str) -> str:
-        text = unicodedata.normalize('NFKD', text)
-        text = ''.join(c for c in text if not unicodedata.combining(c))
-        text = text.lower()
-        text = re.sub(r'\s+', ' ', text).strip()
-        return text
     
     
 
@@ -34,9 +27,6 @@ class TextExtractor:
         match = re.search(r'\+?\d[\d\s.-]{7,}', text)
         return match.group(0) if match else "Indefini"
     
-
-
-
     
 
 
@@ -51,7 +41,7 @@ class TextExtractor:
         match = re.match(r'^([A-Za-zÀ-ÿ\-]+)\s+([A-Za-zÀ-ÿ\-]+)', first_line)
         
         if match:
-            firstname = match.group(2)
+            firstname = match.group(1)
             return firstname.lower()
         
         return "Indefini"
@@ -65,13 +55,16 @@ class TextExtractor:
             return "Indefini"
         
         first_line = lines[0]
-        match = re.match(r'^([A-Za-zÀ-ÿ\-]+)\s+([A-Za-zÀ-ÿ\-]+)', first_line)
+        match = re.match(r'^([A-Za-zÀ-ÿ\-]+)\s+([A-Za-zÀ-ÿ\-]+(?:\s+[A-Za-zÀ-ÿ\-]+)?)', first_line)
         
         if match:
-            lastname = match.group(1)
+            # Get everything after the first name as the last name
+            lastname = match.group(2)
             return lastname.lower()
         
         return "Indefini"
+    
+
 
 
 
@@ -86,8 +79,8 @@ class TextExtractor:
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
-                return self.normalize_degree(match.group(0))
-    
+                return match.group(0)
+
         return "Indefini"
 
 
@@ -104,10 +97,10 @@ class TextExtractor:
         # Normalize line breaks 
         text = text.replace('\r\n', '\n').replace('\r', '\n')
     
-        # Normalize spaces 
+        # # Normalize spaces 
         text = re.sub(r'[ \t]+', ' ', text)
     
-        return text.strip()
+        return text
     
     def extract_all(self, text: str) -> dict:
         cleaned_text = self.clean_text(text)
