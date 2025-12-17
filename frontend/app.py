@@ -45,6 +45,12 @@ if st.button("Analyse du CV"):
 if "cv_result" in st.session_state:
     st.header("Informations extraites du CV")
 
+    st.info(
+        "Par défaut, l'extracteur considère que le prénom est écrit en premier "
+        "et le nom de famille en second.\n"
+        "Exemple : 'Caroline Lavoie Ferré' → Prénom : 'caroline'. Nom : 'lavoie ferré'."
+    )
+
     cv = st.session_state.cv_result
 
     first_name = st.text_input("Prénom", cv["first_name"])
